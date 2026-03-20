@@ -24,3 +24,11 @@ class ExperienceSerializer(serializers.ModelSerializer):
             "updated_at",
             "deleted_at",
         ]
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentModel.Location
+        fields = [
+            "id",
+            "name",
+            "icon_url",
+        ]
