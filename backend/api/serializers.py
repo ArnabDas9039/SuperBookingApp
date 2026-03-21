@@ -24,6 +24,14 @@ class ExperienceSerializer(serializers.ModelSerializer):
             "updated_at",
             "deleted_at",
         ]
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentModel.Location
+        fields = [
+            "id",
+            "name",
+            "icon_url",
+        ]
 
 class ExperienceShortSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,3 +45,4 @@ class ExperienceShortSerializer(serializers.ModelSerializer):
             "entry_fee_base",
             "is_open",
         ]
+

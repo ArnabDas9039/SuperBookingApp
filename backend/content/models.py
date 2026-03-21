@@ -3,6 +3,20 @@ from django.db import models
 from django.core.validators import MinValueValidator
 
 
+class Location(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(
+        max_length=100, unique=True, help_text="e.g. temple, fort, museum"
+    )
+    icon_url = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        db_table = "location"
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(
@@ -30,13 +44,19 @@ class Experience(models.Model):
     id = models.BigAutoField(primary_key=True)
     category_id = models.ForeignKey(
         Category,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE, 
         db_column="category_id",
         related_name="experiences",
     )
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    location = models.CharField(max_length=255)
+    location = models.ForeignKey(
+        Location,
+        on_delete = models.CASCADE,
+        db_column = "location_id",
+        related_name = "experiences",
+
+    )
     latitude = models.DecimalField(
         max_digits=10, decimal_places=8, blank=True, null=True
     )
