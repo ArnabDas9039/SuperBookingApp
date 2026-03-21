@@ -32,3 +32,17 @@ class LocationSerializer(serializers.ModelSerializer):
             "name",
             "icon_url",
         ]
+
+class ExperienceShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentModel.Experience
+        fields = [
+            "id",
+            "name",
+            "category_id",
+            "location",
+            "image_url",
+            "entry_fee_base",
+            "is_open",
+        ]
+

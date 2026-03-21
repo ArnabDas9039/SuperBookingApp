@@ -9,6 +9,5 @@ urlpatterns = [
     path("experience/<int:id>", views.ExperienceView.as_view(), name="experience"),
     path("experience/category/<str:category>/",views.CategoryView.as_view(), name="category"),
     path("location/",views.LocationView.as_view(),name = "location"),
-    # u can give params like --> ?category=beach&city=goa&price_max=5000
-    
+    path("experiences/",views.ExperienceViewList.as_view(), name="experinence_list"),
 ]
