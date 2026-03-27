@@ -20,14 +20,21 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     const requestUrl = originalRequest?.url || "";
     const isRefreshRequest = requestUrl.includes("/auth/refresh/");
-    const status = error.response?.status;
+    const { status, data } = error.response || {};
 
     // console.log(
     //   `[Interceptor] Request: ${originalRequest.method?.toUpperCase()} ${requestUrl}, Status: ${status}, IsRefresh: ${isRefreshRequest}, Retry: ${originalRequest._retry}`,
     // );
 
-    // Prevent infinite loops: don't retry refresh endpoint or requests already retried
-    if (status === 401 && !originalRequest._retry && !isRefreshRequest) {
+    // Only attempt refresh on 401 if the error code indicates an expired token.
+    // This prevents refresh attempts for unauthenticated users.
+    // `simple-jwt` sends a `token_not_valid` code for expired tokens.
+    if (
+      status === 401 &&
+      data?.code === "token_not_valid" &&
+      !originalRequest._retry &&
+      !isRefreshRequest
+    ) {
       // console.log("[Interceptor] Attempting token refresh...");
       originalRequest._retry = true;
       try {
@@ -37,12 +44,11 @@ api.interceptors.response.use(
         // );
         return api(originalRequest);
       } catch (err) {
-        console.error(
-          "[Interceptor] Token refresh failed:",
-          err.response?.status,
-          err.message,
-        );
-        window.location.href = "/login";
+        // console.error(
+        //   "[Interceptor] Token refresh failed:",
+        //   err.response?.status,
+        //   err.message,
+        // );
         return Promise.reject(err);
       }
     }
