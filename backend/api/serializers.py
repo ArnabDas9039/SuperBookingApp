@@ -118,11 +118,17 @@ class BookingSerializer(serializers.ModelSerializer):
             "updated_at",
             "deleted_at",
         ]
-        read_only_fields = ["booking_reference", "created_at", "updated_at", "cancelled_at"]
+        read_only_fields = [
+            "booking_reference",
+            "created_at",
+            "updated_at",
+            "cancelled_at",
+        ]
 
 
 class BookingCreateSerializer(serializers.ModelSerializer):
     """For POST requests - minimal required fields"""
+
     class Meta:
         model = BookingModel.Booking
         fields = [
@@ -138,6 +144,7 @@ class BookingCreateSerializer(serializers.ModelSerializer):
 
 class BookingDetailSerializer(serializers.ModelSerializer):
     """For GET requests - includes related object details"""
+
     user = serializers.StringRelatedField(source="user_id", read_only=True)
     experience = ExperienceShortSerializer(source="experience_id", read_only=True)
 
@@ -155,13 +162,14 @@ class BookingDetailSerializer(serializers.ModelSerializer):
             "refund_status",
             "special_requests",
             "created_at",
+            "updated_at",
         ]
 
 
 class CreatePaymentSerializer(serializers.ModelSerializer):
     booking_reference = serializers.PrimaryKeyRelatedField(
         queryset=BookingModel.Booking.objects.all()
-    ) #get all the booking_refences
+    )  # get all the booking_refences
 
     class Meta:
         model = BookingModel.Payment
@@ -173,9 +181,13 @@ class CreatePaymentSerializer(serializers.ModelSerializer):
 
     def validate_booking_reference(self, booking):
         if booking.status == "cancelled":
-            raise serializers.ValidationError("Cannot create payment for cancelled booking.")
+            raise serializers.ValidationError(
+                "Cannot create payment for cancelled booking."
+            )
         if hasattr(booking, "payment"):
-            raise serializers.ValidationError("Payment already exists for this booking.")
+            raise serializers.ValidationError(
+                "Payment already exists for this booking."
+            )
         return booking
 
     def create(self, validated_data):
@@ -188,10 +200,6 @@ class CreatePaymentSerializer(serializers.ModelSerializer):
             status="pending",
             **{k: v for k, v in validated_data.items() if k != "booking_reference"},
         )
-            "special_requests",
-            "created_at",
-            "updated_at",
-        ]
 
 
 class UserDataRegisterSerializer(serializers.ModelSerializer):
