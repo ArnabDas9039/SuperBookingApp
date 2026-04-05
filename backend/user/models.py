@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class User_Data(models.Model):
@@ -15,7 +17,9 @@ class User_Data(models.Model):
     ]
 
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="user_data", default=0
+    )
     mobile = models.CharField(max_length=20, blank=True, null=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, null=False)
     is_active = models.BooleanField(default=True)
@@ -37,3 +41,14 @@ class User_Data(models.Model):
 
     class Meta:
         db_table = "users"
+
+
+@receiver(post_save, sender=User)
+def create_user_data(sender, instance, created, **kwargs):
+    if created:
+        User_Data.objects.create(user=instance, role="user")
+
+
+@receiver(post_save, sender=User)
+def save_user_data(sender, instance, **kwargs):
+    instance.user_data.save()
