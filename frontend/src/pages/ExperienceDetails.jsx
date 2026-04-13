@@ -128,22 +128,37 @@ export function ExperienceDetails() {
         <div className="experience-details-main">
           <div className="experience-details-main-left">
             <h1>{experience.name}</h1>
-            <h3>Other Details</h3>
-            <p>{experience.description || "No additional details available."}</p>
+            <section className="details-section">
+              <h3 className="details-heading">Other Details</h3>
+              <p className="details-text">
+                {experience.description || "No additional details available."}
+              </p>
+            </section>
 
-            <h3>Rules</h3>
-            <p>
-              {experience.is_open
-                ? "Please arrive 15 minutes early and carry a valid ID."
-                : "This experience is currently not open for bookings."}
-            </p>
+            <section className="details-section">
+              <h3 className="details-heading">Rules</h3>
+              <p className="details-text">
+                {experience.is_open
+                  ? "Please arrive 15 minutes early and carry a valid ID."
+                  : "This experience is currently not open for bookings."}
+              </p>
+            </section>
           </div>
 
           <div className="experience-details-main-right">
-            <p>{experience.is_open ? "Open Now" : "Closed"}</p>
-            <p>{`${formatTime(experience.opening_time)} - ${formatTime(
-              experience.closing_time
-            )}`}</p>
+            <div className="experience-meta-card">
+              <p
+                className={`experience-status${
+                  experience.is_open ? " experience-status-open" : ""
+                }`}
+              >
+                {experience.is_open ? "Open Now" : "Closed"}
+              </p>
+              <p className="meta-label">Timings</p>
+              <p className="meta-value">{`${formatTime(
+                experience.opening_time
+              )} - ${formatTime(experience.closing_time)}`}</p>
+            </div>
 
             <Link to={`/booking/${id}`} className="book-now-button">
               Book Now
