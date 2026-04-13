@@ -1,0 +1,229 @@
+.experience-details-page {
+  padding: 1.25rem 1rem 2.25rem;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+
+.experience-details-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+}
+
+.experience-details-card {
+  border: 2px solid var(--md-sys-color-outline);
+  border-radius: 0.85rem;
+  background: var(--md-sys-color-surface-container-low);
+  padding: 1rem;
+  min-height: 70vh;
+}
+
+.experience-details-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.15rem;
+}
+
+.experience-image-main {
+  width: auto;
+  max-width: 100%;
+  height: clamp(220px, 40vw, 520px);
+  object-fit: contain;
+  border-radius: 0.7rem;
+  background: transparent;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: block;
+  margin: 0 auto;
+}
+
+.experience-thumbnails {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.2rem;
+  padding-top: 0.5rem;
+}
+
+.experience-thumbnail {
+  flex: 0 0 auto;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 0.55rem;
+  padding: 0.15rem;
+  background: transparent;
+  overflow: visible;
+  line-height: 0;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.experience-thumbnail:hover {
+  border-color: var(--md-sys-color-primary);
+}
+
+.experience-thumbnail-active {
+  border-color: var(--md-sys-color-primary);
+  border-width: 2px;
+  transform: translateY(-2px);
+}
+
+.experience-thumbnail-image {
+  width: auto;
+  max-width: min(220px, 35vw);
+  height: 72px;
+  object-fit: contain;
+  background: transparent;
+  display: block;
+  margin: 0 auto;
+  border-radius: 0.35rem;
+}
+
+.experience-details-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.45fr);
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 8.8rem;
+}
+
+.experience-details-main-left h1 {
+  margin: 0 0 0.8rem;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--md-sys-color-on-surface);
+}
+
+.experience-details-main-left h3 {
+  margin: 1.2rem 0 0.35rem;
+  font-size: 1.45rem;
+  color: var(--md-sys-color-on-surface);
+}
+
+.experience-details-main-left p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.experience-details-main-right {
+  padding-top: 1rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.experience-details-main-right p {
+  margin: 0 0 0.35rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.book-now-button {
+  margin-top: 1.3rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 180px;
+  height: 2.45rem;
+  border-radius: 999px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.book-now-button:hover {
+  background: var(--md-sys-color-secondary);
+}
+
+.experience-reviews h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1.95rem;
+  color: var(--md-sys-color-on-surface);
+}
+
+.review-list {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 42rem;
+}
+
+.review-item {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem;
+  border-radius: 0.65rem;
+  background: var(--md-sys-color-surface-container);
+}
+
+.review-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  color: var(--md-sys-color-on-secondary-container);
+  background: var(--md-sys-color-secondary-container);
+}
+
+.review-copy h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--md-sys-color-on-surface);
+}
+
+.review-copy p {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.review-rating {
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  color: var(--md-sys-color-tertiary);
+}
+
+.experience-details-state {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  color: var(--md-sys-color-on-surface-variant);
+  background: var(--md-sys-color-background);
+}
+
+@media (max-width: 900px) {
+  .experience-details-main {
+    grid-template-columns: 1fr;
+    margin-bottom: 2.2rem;
+  }
+
+  .book-now-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .experience-details-page {
+    padding: 1rem 0.65rem 2rem;
+  }
+
+  .experience-details-title {
+    font-size: 1.2rem;
+  }
+
+  .experience-image-main {
+    height: 220px;
+  }
+
+  .experience-details-main-left h1 {
+    font-size: 1.55rem;
+  }
+
+  .experience-details-main-left h3 {
+    font-size: 1.25rem;
+  }
+}
